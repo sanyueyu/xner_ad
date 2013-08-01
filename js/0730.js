@@ -1,5 +1,5 @@
-SOHU_AD = {
-		 uitls : {},
+var SOHU_AD = {
+	 	uitls : {},
 		 bet : {}
 };	
 SOHU_AD.bet = (function ($) {
@@ -55,8 +55,7 @@ SOHU_AD.bet = (function ($) {
 					$(this)	.css( 'background', 'url(http://images.sohu.com/bill/s2012/gates/all/replay_h.png)');	
 				}, function() {
 					$(this).css( 'background',  'url(http://images.sohu.com/bill/s2012/gates/all/replay.png)');
-				}).appendTo($('#' + ad_replay.wrapId));
-				
+				}).appendTo($('#' + ad_replay.wrapId));				
  }
  function init () {
 	 	$(".ad260").css({
@@ -85,28 +84,25 @@ SOHU_AD.bet = (function ($) {
      		top: '0'						   
 		}).appendTo(".ad260").hide();
 		loadFlash(flash);		
-		sohuvd.vi = sohuvd.vi || 0;
 		ad_reply(ad_replay);
 		sohuvd.load();
-		if(sohuvd.vi != 0) {
-			hide();
-		} else {
-			show(sohuvd.vi);
-		}
+		sohuvd.vi = sohuvd.vi || 0;
+		control();
 	return this;
  }
  function show () {
 	if(sohuvd.vi == 0) {
 		$("#ad_bet").show();
-	} else if(sohuvd.vi < 3 && sohuvd.vi != 0) {
+		sohuvd.vi++;
+	} else if(sohuvd.vi < 3) {
 		$("#ad_bet").empty();
 		//flash.firstTime = 0;
 		loadFlash2(flash);	
 		$("#ad_bet").show();
+		sohuvd.vi++;
 	} else {
 		hide();	
 	}
-	sohuvd.vi++;
 	sohuvd.store();
 	 return this;
  }
@@ -117,6 +113,7 @@ SOHU_AD.bet = (function ($) {
 	 return this;
  }
  function control () {
+	 show();
 	 window.adTallest = {};//close flash
 	adTallest.close = function() {
 			hide();
@@ -139,4 +136,4 @@ SOHU_AD.bet = (function ($) {
 	hide: hide	 
  };
 })(jQuery);
-SOHU_AD.bet.init().control();
+SOHU_AD.bet.init();
